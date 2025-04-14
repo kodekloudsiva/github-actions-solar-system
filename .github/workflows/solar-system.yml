@@ -53,8 +53,8 @@ jobs:
         run: npm install
 
       - name: Run Code Coverage
-        run: npm run code-coverage
-        
+        run: npm run code coverage
+
       - name: Uplo
         uses: actions/upload-artifact@v4
         with: 

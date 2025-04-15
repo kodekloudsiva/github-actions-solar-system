@@ -108,7 +108,6 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: '${{ secrets.KUBECONFIG }}'
-          context: default
       - name: Validate Steps Install Kubectl & Context Set
         run: kubectl version -o yaml
 

@@ -103,18 +103,14 @@ jobs:
         uses: azure/setup-kubectl@v4
         with:
           version: 'v1.28.1' # default is latest stable
-      - name: Check kubeconfig file
-        run: |
-          echo '${{ secrets.KUBECONFIG }}'
-
-      # - name: Context Set
-      #   uses: azure/k8s-set-context@v4
-      #   with:
-      #     method: kubeconfig
-      #     kubeconfig: ${{ secrets.KUBECONFIG }}
-      #     context: default
-      # - name: Validate Steps Install Kubectl & Context Set
-      #   run: kubectl version -o yaml
+      - name: Context Set
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
+          context: default
+      - name: Validate Steps Install Kubectl & Context Set
+        run: kubectl version -o yaml
 
 
     

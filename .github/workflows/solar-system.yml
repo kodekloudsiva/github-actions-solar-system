@@ -73,6 +73,8 @@ jobs:
       runs-on: ubuntu-latest
       name: docker
       needs: [unit-testing, code-coverage]
+      permissions: 
+        packages: write
       steps: 
         - name: Checkout repository
           uses: actions/checkout@v4

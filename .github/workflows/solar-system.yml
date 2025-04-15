@@ -102,13 +102,8 @@ jobs:
         - uses: azure/setup-kubectl@v4
           with:
             version: v1.28.1
-        - name: Set up Kubeconfig
-          run: |
-            echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-            echo "${{ secrets.KUBECONFIG }}" > /home/runner/.kube/config
-            cat "${{ secrets.KUBECONFIG }}"
-        #- uses: azure/k8s-set-context@v3
-         # with:
-          #  method: kubeconfig
-           # kubeconfig: '${{ secrets.KUBECONFIG }}'
+        - uses: azure/k8s-set-context@v3
+          with:
+            method: kubeconfig
+            kubeconfig: ${{ secrets.KUBECONFIG }}
         - run: kubectl version -o yaml

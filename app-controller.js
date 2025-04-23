@@ -43,6 +43,7 @@ function func() {
             }
         })
         .then(function(res2) {
+            debugger;
             console.log("Response status:", res2.status);
             if (res2.ok) {
                 return res2.json();

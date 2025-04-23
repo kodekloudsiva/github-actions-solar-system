@@ -10,15 +10,20 @@ const cors = require('cors')
 let dbConnected = false;
 // Check if we're running in test mode
 const isTestMode = process.env.NODE_ENV === 'test' || process.argv.includes('app-test.js');
+const dbUrl = "mongodb+srv://@cluster0.psljqau.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const dbUser = "kodekloudsiva";
+const dbPassword = "Jv8GAOdKWx2W3jNO";
+
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/')));
 app.use(cors())
 
-mongoose.connect(process.env.MONGO_URI, {
-    user: process.env.MONGO_USERNAME,
-    pass: process.env.MONGO_PASSWORD,
+mongoose.connect(dbUrl, {
+    user: dbUser,
+    pass: dbPassword,
     useNewUrlParser: true,
+    dbName: 'solar-system',
     useUnifiedTopology: true
 }, function(err) {
     if (err) {

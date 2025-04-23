@@ -69,6 +69,7 @@ app.post('/planet', function(req, res) {
         id: req.body.id
     }, function(err, planetData) {
         if (err) {
+            alert('hi');
             return res.status(400).json({
                 error: "Error in Planet Data"
             });

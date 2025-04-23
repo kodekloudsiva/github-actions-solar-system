@@ -27,6 +27,7 @@ jobs:
           
         - name: Archive Test Result
           uses: actions/upload-artifact@v4
+          continue-on-error: true
           with:
             name: Mocha-Test-Result
             path: test-results.xml

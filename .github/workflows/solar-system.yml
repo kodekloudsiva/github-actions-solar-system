@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - 'feature/*'
 
 env:
   MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'

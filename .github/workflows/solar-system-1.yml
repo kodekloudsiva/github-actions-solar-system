@@ -5,11 +5,12 @@ on:
     
 jobs:
     unit-testing:
-        name: Unit Testing        
-        strategy:
-          matrix:
-            os: [windows-latest, ubuntu-latest]             
-        runs-on: ${{ matrix.os }}
+        name: Unit Testing                          
+        runs-on: ubuntu-latest
+        # Expose step outputs as job outputs
+        outputs: 
+          my-step-output-1: ${{ steps.output-step-1.outputs.expectedout }}
+          my-step-output-2: ${{ steps.output-step-2.outputs.expectedout }}
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -24,6 +25,15 @@ jobs:
     
         - name: Unit Testing
           run: npm test
+        
+        - name: Output step-1
+          id: output-step-1
+          run: 
+            echo "expectedout=Hello" >> "$GITHUB_OUTPUT"
+        - name: Output step-2
+          id: output-step-2
+          run: 
+            echo "expectedout=world" >> "$GITHUB_OUTPUT"
           
         - name: Archive Test Result
           uses: actions/upload-artifact@v4
@@ -31,3 +41,17 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
+    code-coverage: 
+      name: code-coverage
+      runs-on: ubuntu-latest
+      needs: unit-testing
+      steps:
+        - name: get output - from previous job
+          run: echo ${{ needs.unit-testing.outputs.my-step-output-1 }} ${{ needs.unit-testing.outputs.my-step-output-2 }} 
+
+        - name: downloading artifact
+          uses: actions/download-artifact@v4
+          # with:
+          #   name: my-artifact
+        - name: Display structure of downloaded files
+          run: ls -R

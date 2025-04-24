@@ -32,7 +32,7 @@ jobs:
             docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}
             docker ps -a
             sleep 15
-            curl --fail http://localhost:3000/ready 
+            curl -sSf http://localhost:3000/ | grep "<html>" || exit 1
             
             
         # || (docker logs my-running-app && exit 1)

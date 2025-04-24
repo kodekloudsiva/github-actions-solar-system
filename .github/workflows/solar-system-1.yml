@@ -35,6 +35,10 @@ jobs:
         - name: set work directory
           run: |
             cd github-actions-solar-system
+        
+        - name: list files
+          run: |
+            ls -lrt
 
         - name: Build Docker image
           run: |

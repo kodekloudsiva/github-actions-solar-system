@@ -31,7 +31,10 @@ jobs:
           run: |
             docker run -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}
             docker ps -a
-            curl --fail http://localhost:3000/ready || (docker logs my-running-app && exit 1)
+            curl --fail http://localhost:3000/ready 
+            
+            
+        # || (docker logs my-running-app && exit 1)
 
 
         # - name: login to docker hub

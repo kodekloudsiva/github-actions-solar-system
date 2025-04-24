@@ -43,7 +43,7 @@ jobs:
         - name: Build Docker image
           run: |
             docker build \
-              --file .\github-actions-solar-system\Dockerfile \
+              --file ./github-actions-solar-system/Dockerfile \
               --build-arg MONGO_URI="${{ vars.MONGO_URI }}" \
               --build-arg MONGO_USERNAME="${{ vars.MONGO_USERNAME }}" \
               --build-arg MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}" \

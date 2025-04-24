@@ -35,11 +35,11 @@ jobs:
         - name: set work directory
           run: |
             cd ./github-actions-solar-system
-            echo pwd
+            pwd
         
         - name: list files
           run: |
-            echo pwd
+            pwd
             ls -lrt
 
         - name: Build Docker image

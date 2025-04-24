@@ -4,6 +4,25 @@ on:
   workflow_dispatch:
     
 jobs:
+    test: 
+      name: test
+      runs-on: ubuntu-latest
+      steps: 
+        - name: clone repository
+          env:
+            TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
+        
+        - name: run test
+          run: npm test
+
+        - name: upload artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: test-report
+            path: ./github-actions-solar-system/test-results.xml
+
     build: 
       name: build
       runs-on: ubuntu-latest
@@ -32,6 +51,7 @@ jobs:
           id: step_run_test_container
           run: |
             CONTAINER_ID=$(docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }})
+            echo $CONTAINER_ID
             echo "test_container_id=$CONTAINER_ID" >> $GITHUB_OUTPUT
 
         - name: validate test container

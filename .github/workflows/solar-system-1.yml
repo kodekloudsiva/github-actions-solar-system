@@ -29,7 +29,7 @@ jobs:
               -t solar-system:"${{ github.sha }}" .
         - name: run test container
           run: |
-            docker run -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}
+            docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}
             docker ps -a
             sleep 15
             curl --fail http://localhost:3000/ready 

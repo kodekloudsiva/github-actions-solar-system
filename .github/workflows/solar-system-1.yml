@@ -32,6 +32,10 @@ jobs:
             docker --version
             docker info
 
+        - name: verify files
+          run: |
+            ls -lrt
+
         - name: Build Docker image
           run: |
             docker build \

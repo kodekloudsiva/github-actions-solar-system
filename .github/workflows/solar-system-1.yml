@@ -35,8 +35,7 @@ jobs:
         - name: set work directory
           run: |
             pwd
-            cd ./github-actions-solar-system/
-            pwd
+            ls -lrt            
         
         # - name: list files
         #   run: |

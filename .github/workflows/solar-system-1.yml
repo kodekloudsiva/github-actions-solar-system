@@ -21,7 +21,8 @@ jobs:
         #        --build-arg MONGO_USERNAME=${{ vars.MONGO_USERNAME }} \
         #        --build-arg MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
         #        -t solar-system:${{ github.sha }} .
-        - name: build docker image
+        
+        - name: Build Docker image
           run: |
             docker build \
               --build-arg MONGO_URI=${{ vars.MONGO_URI }} \

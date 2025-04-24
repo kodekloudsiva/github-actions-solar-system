@@ -15,7 +15,7 @@ jobs:
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
         - name: build docker image
           run: |
-            docker build --build-arg MONGO_URI=${{ vars.MONGO_URI }} --build-arg MONGO_USERNAME=${{ vars.MONGO_USERNAME }} --build-arg MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} -t solar-system:${{ github.sha }} .                            
+            docker build --build-arg MONGO_URI=${{ vars.MONGO_URI }} -t solar-system:${{ github.sha }} .                      
         - name: run test container
           run: |
             docker run -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}

@@ -34,7 +34,7 @@ jobs:
 
         - name: set work directory
           run: |
-            cd github-actions-solar-system
+            cd ./github-actions-solar-system
         
         - name: list files
           run: |

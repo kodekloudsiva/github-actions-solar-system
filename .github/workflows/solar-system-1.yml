@@ -15,7 +15,7 @@ jobs:
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
         
         - name: run test
-          run: npm test
+          run: cd ./github-actions-solar-system/ && npm test
 
         - name: upload artifact
           uses: actions/upload-artifact@v4

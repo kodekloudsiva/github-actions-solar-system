@@ -13,13 +13,19 @@ jobs:
             TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
+        - name: Set up Docker classic builder
+          run: docker buildx use default
         - name: Test shell echo
           run: |
             echo "Start command"
             docker build --version
-        - name: build docker image
+        - name: Build Docker image
           run: |
-            docker build --build-arg MONGO_URI=${{ vars.MONGO_URI }} -t solar-system:${{ github.sha }} .                      
+            docker build \
+              --build-arg MONGO_URI=${{ vars.MONGO_URI }} \
+              --build-arg MONGO_USERNAME=${{ vars.MONGO_USERNAME }} \
+              --build-arg MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
+              -t solar-system:${{ github.sha }} .
         - name: run test container
           run: |
             docker run -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}

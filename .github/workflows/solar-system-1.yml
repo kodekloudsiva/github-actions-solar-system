@@ -13,12 +13,17 @@ jobs:
             TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
-        - name: Set up Docker classic builder
-          run: docker buildx use default
-        - name: Test shell echo
+
+        - name: set up Docker (classic version)
           run: |
-            echo "Start command"
-            docker build --version
+            sudo apt-get update
+            sudo apt-get install docker.io
+    
+        - name: verify Docker version
+          run: |
+            docker --version
+            docker info
+
         - name: Build Docker image
           run: |
             docker build \

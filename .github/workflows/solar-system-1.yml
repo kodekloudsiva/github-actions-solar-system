@@ -21,7 +21,7 @@ jobs:
           env: 
             MONGO_URI: "${{ vars.MONGO_URI }}"
             MONGO_USERNAME: "${{ vars.MONGO_USERNAME }}"
-            MONGO_PASSWORD: "${{ secrets.MONGO_URI }}"
+            MONGO_PASSWORD: "${{ secrets.MONGO_PASSWORD }}"
           run: cd ./github-actions-solar-system/ && npm test
 
         - name: upload artifact

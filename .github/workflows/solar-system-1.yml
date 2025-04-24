@@ -29,16 +29,19 @@ jobs:
               -t solar-system:"${{ github.sha }}" .
 
         - name: run test container and capture id
-          id: run_test_container
+          id: step_run_test_container
           run: |
             CONTAINER_ID=$(docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }})
-            echo "container_id=CONTAINER_ID" >> $GITHUB_OUTPUT
+            echo "test_container_id=CONTAINER_ID" >> $GITHUB_OUTPUT
 
         - name: validate test container
           run: |            
             sleep 5
-            curl --fail http://localhost:3000/ready || (docker logs ${{ steps.run_test_container.outputs.container_id }} && exit 1)            
-            
+            curl --fail http://localhost:3000/ready || (docker logs ${{ steps.step_run_test_container.outputs.test_container_id }} && exit 1)            
+        
+        - name: cleanup
+          if: always()
+          run: docker rm -f ${{ steps.step_run_test_container.outputs.test_container_id }}
                         
 
 

@@ -32,9 +32,9 @@ jobs:
             docker --version
             docker info
 
-        - name: verify files
+        - name: set work directory
           run: |
-            ls -lrt
+            cd github-actions-solar-system
 
         - name: Build Docker image
           run: |

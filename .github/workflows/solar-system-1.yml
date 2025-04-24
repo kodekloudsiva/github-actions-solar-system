@@ -14,37 +14,10 @@ jobs:
           run: |
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
 
-        # - name: Clean up Docker (if present)
-        #   run: |
-        #     sudo apt-get remove -y docker docker-engine docker.io containerd runc
-        #     sudo apt-get update
-
-        # - name: set up Docker (classic version)
-        #   run: |
-        #     sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-        #     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-        #     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        #     sudo apt-get update
-        #     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-    
         - name: verify Docker version
           run: |
             docker --version
             docker info
-
-        # - name: set work directory
-        #   run: |
-        #     pwd
-        #     ls -lrt        
-        #     cd ./github-actions-solar-system/
-        #     pwd
-        #     ls -lrt    
-        
-        # - name: list files
-        #   run: |
-        #     pwd
-        #     ls github-actions-solar-system/ -lrt
-        #     ls ./github-actions-solar-system/ -lrt
 
         - name: Build Docker image
           run: |
@@ -57,6 +30,8 @@ jobs:
         - name: run test container
           run: |
             docker run -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}
+            curl --fail http://localhost:3000/ready || (docker logs my-running-app && exit 1)
+
 
         # - name: login to docker hub
         #   uses: docker/login-action@v3

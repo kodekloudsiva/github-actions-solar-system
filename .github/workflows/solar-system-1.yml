@@ -2,7 +2,8 @@ name: Solar System Workflow
 
 on: 
   workflow_dispatch:
-    
+env: 
+  IMAGE_NAME: "solar-system"    
 jobs:
     test: 
       name: test
@@ -69,10 +70,19 @@ jobs:
             sleep 5
             curl --fail http://localhost:3000/ready || (docker logs ${{ steps.step_run_test_container.outputs.test_container_id }} && exit 1)            
         
+        - name: login to docker registry
+          run: |
+            docker login -u ${{ vars.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          
+        - name: push image to docker registry
+          run: |
+            docker push docker.io/"${{ vars.DOCKERHUB_USERNAME }}"/solar-system:"${{ github.sha }}"
+
         - name: cleanup
           if: always()
           run: docker rm -f ${{ steps.step_run_test_container.outputs.test_container_id }}
-                        
+        
+
 
 
         # - name: login to docker hub

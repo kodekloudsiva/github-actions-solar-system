@@ -15,7 +15,7 @@ jobs:
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
         
         - name: docker build
-          run: | 
+          run: |
               docker build \
                --build-arg MONGO_URI=${{ vars.MONGO_URI }} \
                --build-arg MONGO_USERNAME=${{ vars.MONGO_USERNAME }} \

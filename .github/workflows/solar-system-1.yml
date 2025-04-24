@@ -14,6 +14,9 @@ jobs:
           run: |
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
         
+        - name: install dependencies
+          run: cd ./github-actions-solar-system/ && npm ci
+
         - name: run test
           run: cd ./github-actions-solar-system/ && npm test
 

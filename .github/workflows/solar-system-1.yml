@@ -14,12 +14,12 @@ jobs:
           run: |
             git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
 
-        - name: verify Docker version
+        - name: verify docker version
           run: |
             docker --version
             docker info
 
-        - name: Build Docker image
+        - name: build docker image
           run: |
             docker build \
               --file ./github-actions-solar-system/Dockerfile \
@@ -27,33 +27,19 @@ jobs:
               --build-arg MONGO_USERNAME="${{ vars.MONGO_USERNAME }}" \
               --build-arg MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}" \
               -t solar-system:"${{ github.sha }}" .
-        - name: run test container
+
+        - name: run test container and capture id
+          id: run_test_container
           run: |
-            docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}
-            docker ps -a
+            CONTAINER_ID=$(docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }})
+            echo "container_id=CONTAINER_ID" >> $GITHUB_OUTPUT
+
+        - name: validate test container
+          run: |            
             sleep 5
-            curl --fail http://localhost:3000/ready || (docker logs my-frontend-container && exit 1)
-            # # Wait up to 30 seconds for the service to be ready
-            # for i in {1..15}; do
-            #   if curl -s http://localhost:3000/ > /dev/null; then
-            #     echo "Frontend is ready!"
-            #     break
-            #   fi
-            #   echo "Waiting for frontend to be ready... ($i)"
-            #   sleep 2
-            # done
-
-            # # Final check (with failure if not ready)
-            # curl -sSf http://localhost:3000/ | grep "<html>" || {
-            #   echo "Frontend not responding correctly"
-            #   docker logs my-running-app
-            #   exit 1
-            # }
+            curl --fail http://localhost:3000/ready || (docker logs ${{ steps.run_test_container.outputs.container_id }} && exit 1)            
             
-
-            
-            
-        # || (docker logs my-running-app && exit 1)
+                        
 
 
         # - name: login to docker hub

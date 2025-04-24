@@ -31,8 +31,8 @@ jobs:
           run: |
             docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }}
             docker ps -a
-            sleep 10
-            (curl http://localhost:3000/ready | grep "ready") || (docker logs my-running-app && exit 1)
+            sleep 5
+            curl --fail http://localhost:3000/ready || (docker logs my-frontend-container && exit 1)
             # # Wait up to 30 seconds for the service to be ready
             # for i in {1..15}; do
             #   if curl -s http://localhost:3000/ > /dev/null; then

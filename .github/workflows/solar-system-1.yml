@@ -24,7 +24,7 @@ jobs:
             MONGO_PASSWORD: "${{ secrets.MONGO_PASSWORD }}"
           run: |
             cd ./github-actions-solar-system/ && npm test
-            ls ./github-actions-solar-system/ -lrt
+            ls -lrt
 
         - name: upload artifact
           uses: actions/upload-artifact@v4

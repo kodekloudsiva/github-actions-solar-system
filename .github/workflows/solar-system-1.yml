@@ -22,7 +22,9 @@ jobs:
             MONGO_URI: "${{ vars.MONGO_URI }}"
             MONGO_USERNAME: "${{ vars.MONGO_USERNAME }}"
             MONGO_PASSWORD: "${{ secrets.MONGO_PASSWORD }}"
-          run: cd ./github-actions-solar-system/ && npm test
+          run: |
+            cd ./github-actions-solar-system/ && npm test
+            ls ./github-actions-solar-system/ -lrt
 
         - name: upload artifact
           uses: actions/upload-artifact@v4
@@ -33,6 +35,7 @@ jobs:
     build: 
       name: build
       runs-on: ubuntu-latest
+      needs: [test]
       steps: 
         - name: clone repository
           env:

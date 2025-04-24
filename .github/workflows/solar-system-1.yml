@@ -56,7 +56,7 @@ jobs:
               --build-arg MONGO_URI="${{ vars.MONGO_URI }}" \
               --build-arg MONGO_USERNAME="${{ vars.MONGO_USERNAME }}" \
               --build-arg MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}" \
-              -t solar-system:"${{ github.sha }}" .
+              -t ${{ vars.DOCKERHUB_USERNAME }}/solar-system:"${{ github.sha }}" .
 
         - name: run test container and capture id
           id: step_run_test_container

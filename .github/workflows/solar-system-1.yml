@@ -76,7 +76,7 @@ jobs:
           
         - name: push image to docker registry
           run: |
-            docker push docker.io/${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+            docker push ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
 
         - name: cleanup
           if: always()

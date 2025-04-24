@@ -6,7 +6,7 @@ COPY ./github-actions-solar-system/package*.json /usr/app/
 
 RUN npm install
 
-COPY . .
+COPY ./github-actions-solar-system/ .
 
 # Accept build-time args
 ARG MONGO_URI

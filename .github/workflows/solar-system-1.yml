@@ -59,10 +59,10 @@ jobs:
           id: step_run_test_container
           run: |
             CONTAINER_ID=$(docker run \
-            -it -d --name my-running-app \
-            -e MONGO_URI=${{ vars.MONGO_URI }} \
-            -e MONGO_USERNAME=${{ vars.MONGO_USERNAME }} \
-            -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
+            -it -d --name solar-system-app-test \
+            -e MONGO_URI="${{ vars.MONGO_URI }}" \
+            -e MONGO_USERNAME="${{ vars.MONGO_USERNAME }}" \
+            -e MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}" \
             -p 3000:3000 solar-system:${{ github.sha }})
             echo $CONTAINER_ID
             echo "test_container_id=$CONTAINER_ID" >> $GITHUB_OUTPUT

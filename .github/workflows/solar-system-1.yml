@@ -53,15 +53,17 @@ jobs:
           run: |
             docker build \
               --file ./github-actions-solar-system/Dockerfile \
-              --build-arg MONGO_URI="${{ vars.MONGO_URI }}" \
-              --build-arg MONGO_USERNAME="${{ vars.MONGO_USERNAME }}" \
-              --build-arg MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}" \
               -t solar-system:"${{ github.sha }}" .
 
         - name: run test container and capture id
           id: step_run_test_container
           run: |
-            CONTAINER_ID=$(docker run -it -d --name my-running-app -p 3000:3000 solar-system:${{ github.sha }})
+            CONTAINER_ID=$(docker run \
+            -it -d --name my-running-app \
+            -e MONGO_URI=${{ vars.MONGO_URI }} \
+            -e MONGO_USERNAME=${{ vars.MONGO_USERNAME }} \
+            -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
+            -p 3000:3000 solar-system:${{ github.sha }})
             echo $CONTAINER_ID
             echo "test_container_id=$CONTAINER_ID" >> $GITHUB_OUTPUT
 

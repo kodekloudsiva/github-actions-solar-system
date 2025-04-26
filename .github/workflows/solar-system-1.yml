@@ -85,7 +85,18 @@ jobs:
           if: always()
           run: docker rm -f ${{ steps.step_run_test_container.outputs.test_container_id }}
         
-
+    deploy: 
+      runs-on: [self-hosted, siva-self-hosted, Linux]
+      steps: 
+        - name: clone repository
+          env:
+            TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            git clone https://$TOKEN@github.com/${{ github.repository_owner }}/github-actions-solar-system.git
+        
+        - name: verify kubectl
+          run: |
+            kubectl get nodes
 
 
         # - name: login to docker hub
@@ -93,7 +104,10 @@ jobs:
         #   with:
         #     username: ${{ vars.DOCKERHUB_USERNAME }}
         #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-    # unit-testing:
+    
+    
+    
+        # unit-testing:
     #     name: Unit Testing                          
     #     runs-on: ubuntu-latest
     #     # Expose step outputs as job outputs

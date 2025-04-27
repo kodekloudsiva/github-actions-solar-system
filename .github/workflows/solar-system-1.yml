@@ -89,7 +89,7 @@ jobs:
       runs-on: [self-hosted, siva-self-hosted, Linux]      
       steps: 
         - name: cleanup before start
-          run: rm ./github-actions-solar-system
+          run: rm -rf ./github-actions-solar-system
 
         - name: clone repository
           env:

@@ -115,6 +115,11 @@ jobs:
             MONGO_URI: "${{ vars.MONGO_URI }}"
             MONGO_USERNAME: "${{ vars.MONGO_USERNAME }}"
             MONGO_PASSWORD: "${{ secrets.MONGO_PASSWORD }}"
+
+        - name: verify manifest files
+          run: |
+            ls ./github-actions-solar-system/kubernetes/development/*.yaml
+            cat ./github-actions-solar-system/kubernetes/development/*.yaml
         
         - name: create secrets for mongo db
           run: |
@@ -127,10 +132,7 @@ jobs:
         #      --from-literal=MONGO_USERNAME="${{ vars.MONGO_USERNAME }}" \
         #      --from-literal=MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}"
 
-        - name: verify manifest files
-          run: |
-            ls ./github-actions-solar-system/kubernetes/development/*.yaml
-            cat ./github-actions-solar-system/kubernetes/development/*.yaml
+        
 
         # - name: login to docker hub
         #   uses: docker/login-action@v3

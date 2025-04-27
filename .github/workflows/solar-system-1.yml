@@ -118,8 +118,8 @@ jobs:
 
         - name: verify manifest files
           run: |
-            ls ./github-actions-solar-system/kubernetes/development/*.yaml
-            cat ./github-actions-solar-system/kubernetes/development/*.yaml
+            ls ./github-actions-solar-system/kubernetes/development/**/*.yaml
+            cat ./github-actions-solar-system/kubernetes/development/**/*.yaml
         
         - name: create secrets for mongo db
           run: |

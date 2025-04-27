@@ -86,8 +86,11 @@ jobs:
           run: docker rm -f ${{ steps.step_run_test_container.outputs.test_container_id }}
         
     deploy: 
-      runs-on: [self-hosted, siva-self-hosted, Linux]
+      runs-on: [self-hosted, siva-self-hosted, Linux]      
       steps: 
+        - name: cleanup before start
+          run: rm ./github-actions-solar-system
+
         - name: clone repository
           env:
             TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -93,7 +93,6 @@ jobs:
           run: |
             rm -rf ./github-actions-solar-system
             kubectl delete all --all -n ${{ vars.NAMESPACE }}
-            kubectl create namespace ${{ vars.NAMESPACE }}
 
         - name: clone repository
           env:

@@ -129,6 +129,9 @@ jobs:
         - name: create secrets for mongo db
           run: |
             kubectl apply -f ./github-actions-solar-system/kubernetes/development/secrets/mongo-secret.yaml              
+        - name: deploy resources
+          run: |
+            kubectl apply -f ./github-actions-solar-system/kubernetes/development/*.yaml
 
         # - name: create secrets for mongo db
         #   run: |

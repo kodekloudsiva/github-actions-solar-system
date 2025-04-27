@@ -98,6 +98,21 @@ jobs:
           run: |
             kubectl get nodes
 
+        - name: replace tokens in kubernetes manifest files
+          uses: cschleiden/replace-tokens@v1
+          with:
+            tokenPrefix: '{'
+            tokenSuffix: '}'
+            files: '["./github-actions-solar-system/kubernetes/development/*.yaml"]'
+          env:
+            NAMESPACE: "${{ vars.NAMESPACE }}"
+            REPLICAS: "${{ vars.REPLICAS }}"
+            IMAGE: "${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}"  
+
+        - name: verify manifest files
+          run: |
+            ls ./github-actions-solar-system/kubernetes/development/*.yaml
+            cat ./github-actions-solar-system/kubernetes/development/*.yaml
 
         # - name: login to docker hub
         #   uses: docker/login-action@v3

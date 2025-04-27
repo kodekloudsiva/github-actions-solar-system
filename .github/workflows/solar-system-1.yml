@@ -92,7 +92,7 @@ jobs:
         - name: cleanup before start
           run: |
             rm -rf ./github-actions-solar-system
-            kubectl -n ${{ vars.NAMESPACE }} delete secret mongo-db-creds
+            kubectl -n ${{ vars.NAMESPACE }} delete all
 
         - name: clone repository
           env:

@@ -86,7 +86,8 @@ jobs:
           run: docker rm -f ${{ steps.step_run_test_container.outputs.test_container_id }}
         
     deploy: 
-      runs-on: [self-hosted, siva-self-hosted, Linux]      
+      runs-on: [self-hosted, siva-self-hosted, Linux]     
+      environment: development 
       steps: 
         - name: cleanup before start
           run: rm -rf ./github-actions-solar-system

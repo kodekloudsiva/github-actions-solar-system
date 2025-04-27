@@ -104,8 +104,8 @@ jobs:
         - name: replace tokens in kubernetes manifest files
           uses: cschleiden/replace-tokens@v1
           with:
-            tokenPrefix: '{'
-            tokenSuffix: '}'
+            tokenPrefix: '_{_'
+            tokenSuffix: '_}_'
             files: '["./github-actions-solar-system/kubernetes/development/*.yaml"]'
           env:
             NAMESPACE: "${{ vars.NAMESPACE }}"

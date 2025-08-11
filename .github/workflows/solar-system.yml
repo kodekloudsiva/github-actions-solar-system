@@ -86,7 +86,7 @@ jobs:
           - name: Build and push
             uses: docker/build-push-action@v6
             with:
-              context: "{{defaultContext}}:mysubdir"
+              context: .
               push: true
               tags: ghcr.io/${{ github.actor }}/solar-system:${{ github.sha }}
 
